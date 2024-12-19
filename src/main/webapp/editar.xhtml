@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta charset="utf-8" name="viewport"
+          content="width=device-width, initial-scale=1"
+          http-equiv="X-UA-Compatible" />
+    <title>Editar Clientes</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h:panelGrid columns="2" cellspacing="20" border="1">
+            <f:facet name="header">
+                <h:outputText value="Editar Cliente"></h:outputText>
+            </f:facet>
+                <h:outputText value="Nombres"></h:outputText>
+                <h:inputText value="#{persona.nombre}"></h:inputText>
+
+                <h:outputText value="Apellidos"></h:outputText>
+                <h:inputText value="#{persona.apellido}"></h:inputText>
+
+                <h:outputText value="Direccion"></h:outputText>
+                <h:inputText value="#{persona.direccion}"></h:inputText>
+
+                <h:outputText value="Telefono"></h:outputText>
+                <h:inputText value="#{persona.telefono}"></h:inputText>
+
+                <f:facet name="footer">
+                    <h:commandButton action="#{personaBean.actualizar(persona)}" value="Actualizar"></h:commandButton>
+                </f:facet>
+
+        </h:panelGrid>
+    </h:form>
+</h:body>
 </html>
