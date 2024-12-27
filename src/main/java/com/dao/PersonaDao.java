@@ -12,7 +12,7 @@ import java.util.List;
 public class PersonaDao {
 
     @PersistenceContext(unitName = "jsf-crud-unit")
-    private EntityManager entityManager; // El contenedor inyectará automáticamente el EntityManager
+        private EntityManager entityManager; // El contenedor inyectará automáticamente el EntityManager
 
     // Guardar cliente
     public void guardar(Persona persona) {
@@ -53,5 +53,26 @@ public class PersonaDao {
         persona = entityManager.find(Persona.class, id);
         System.out.println("Persona: "+persona);
         entityManager.remove(persona); // Si existe, elimina la entidad
+    }
+
+    public List<Persona> cantPersonasImportantes() {
+        Query query = entityManager.createQuery("SELECT p FROM Persona p");
+        return query.getResultList();
+    }
+    public long contarTotalPersonas() {
+        Query query = entityManager.createQuery("SELECT COUNT(p) FROM Persona p");
+        return (long) query.getSingleResult();
+    }
+
+    // Cantidad de personas por importancia
+    public long contarPorImportancia(String importancia) {
+        Query query = entityManager.createQuery("SELECT COUNT(p) FROM Persona p WHERE p.importancia = :importancia");
+        query.setParameter("importancia", importancia);
+        return (long) query.getSingleResult();
+    }
+    public List<Persona> buscarPorNombre(String nombre) {
+        Query query = entityManager.createQuery("SELECT p FROM Persona p WHERE LOWER(p.nombre) LIKE LOWER(:nombre)");
+        query.setParameter("nombre", "%" + nombre + "%");
+        return query.getResultList();
     }
 }

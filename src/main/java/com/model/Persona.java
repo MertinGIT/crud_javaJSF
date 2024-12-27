@@ -17,6 +17,22 @@ public class Persona {
     private String telefono;
     @Column
     private String direccion;
+    @Column
+    private int estado;
+    @Column
+    private String importancia;
+
+    public String getImportancia() {
+        return importancia;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
 
     public int getId() {
         return id;
@@ -44,6 +60,11 @@ public class Persona {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
+    public void setImportancia(String importancia) {
+        this.importancia = importancia;
+    }
+
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
@@ -54,11 +75,13 @@ public class Persona {
     @Override
     public String toString() {
         return "Persona{" +
-                "id=" + id +
+                "apellido='" + apellido + '\'' +
+                ", id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", telefonono='" + telefono + '\'' +
+                ", telefono='" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +
+                ", estado=" + estado +
+                ", importancia='" + importancia + '\'' +
                 '}';
     }
 }

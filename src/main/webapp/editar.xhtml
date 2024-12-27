@@ -1,36 +1,179 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <meta charset="utf-8" name="viewport"
-          content="width=device-width, initial-scale=1"
-          http-equiv="X-UA-Compatible" />
-    <title>Editar Clientes</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Editar Cliente</title>
+    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: whitesmoke;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-panel {
+            background-color: #333;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .seccion {
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: whitesmoke;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .seccion:hover {
+            background-color: #555;
+        }
+
+        .form-container {
+            margin: 40px auto;
+            max-width: 600px;
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: #333;
+            color: whitesmoke;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #F44336;
+            color: white;
+            border: none;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
 </h:head>
 <h:body>
-    <h:form>
-        <h:panelGrid columns="2" cellspacing="20" border="1">
-            <f:facet name="header">
-                <h:outputText value="Editar Cliente"></h:outputText>
-            </f:facet>
-                <h:outputText value="Nombres"></h:outputText>
-                <h:inputText value="#{persona.nombre}"></h:inputText>
+    <div class="header-panel">
+        <h3 class="header-title">Gestor de Clientes</h3>
+        <div>
+            <a href="index.xhtml" class="seccion">Inicio</a>
+            <a href="index.xhtml" class="seccion">Clientes</a>
+            <a href="prueba.xhtml" class="seccion">Nuevo Cliente</a>
+        </div>
+    </div>
 
-                <h:outputText value="Apellidos"></h:outputText>
-                <h:inputText value="#{persona.apellido}"></h:inputText>
+    <div class="form-container">
+        <h3 class="form-title">Editar Cliente</h3>
+        <h:form>
+            <!-- Campo Nombres -->
+            <div class="form-group">
+                <label for="nombre">Nombres</label>
+                <h:inputText id="nombre" value="#{persona.nombre}" />
+            </div>
 
-                <h:outputText value="Direccion"></h:outputText>
-                <h:inputText value="#{persona.direccion}"></h:inputText>
+            <!-- Campo Apellidos -->
+            <div class="form-group">
+                <label for="apellido">Apellidos</label>
+                <h:inputText id="apellido" value="#{persona.apellido}" />
+            </div>
 
-                <h:outputText value="Telefono"></h:outputText>
-                <h:inputText value="#{persona.telefono}"></h:inputText>
+            <!-- Campo Dirección -->
+            <div class="form-group">
+                <label for="direccion">Dirección</label>
+                <h:inputText id="direccion" value="#{persona.direccion}" />
+            </div>
 
-                <f:facet name="footer">
-                    <h:commandButton action="#{personaBean.actualizar(persona)}" value="Actualizar"></h:commandButton>
-                </f:facet>
+            <!-- Campo Teléfono -->
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <h:inputText id="telefono" value="#{persona.telefono}" />
+            </div>
 
-        </h:panelGrid>
-    </h:form>
+            <!-- Campo Activo -->
+            <div class="form-group">
+                <label for="activo">Activo</label>
+                <h:selectOneMenu id="activo" value="#{persona.estado}">
+                    <f:selectItem itemValue="1" itemLabel="Sí" />
+                    <f:selectItem itemValue="0" itemLabel="No" />
+                </h:selectOneMenu>
+            </div>
+
+            <!-- Campo Importancia -->
+            <div class="form-group">
+                <label for="importancia">Importancia</label>
+                <h:selectOneMenu id="importancia" value="#{persona.importancia}">
+                    <f:selectItem itemValue="bajo" itemLabel="Bajo" />
+                    <f:selectItem itemValue="medio" itemLabel="Medio" />
+                    <f:selectItem itemValue="alto" itemLabel="Alto" />
+                </h:selectOneMenu>
+            </div>
+
+            <!-- Botones -->
+            <div class="form-actions">
+                <h:commandButton value="Actualizar" action="#{personaBean.actualizar(persona)}" styleClass="btn btn-primary" />
+                <h:commandButton value="Eliminar" action="#{personaBean.eliminar(persona.id)}" styleClass="btn btn-danger" />
+            </div>
+        </h:form>
+    </div>
 </h:body>
 </html>

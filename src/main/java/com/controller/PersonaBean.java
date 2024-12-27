@@ -47,7 +47,7 @@ public class PersonaBean {
         Persona persona = new Persona();
         Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         sessionMap.put("persona", persona);
-        return "nuevo?faces-redirect=true";
+        return "prueba?faces-redirect=true";
     }
 
     public String guardar(Persona persona) {
@@ -57,5 +57,43 @@ public class PersonaBean {
         personaDao.guardar(persona);
         return "index?faces-redirect=true";
     }
+
+    public long getTotalPersonas() {
+        return personaDao.contarTotalPersonas();
+    }
+
+    public long getPersonasImportantes() {
+        return personaDao.contarPorImportancia("alto");
+    }
+
+    public long getPersonasMedias() {
+        return personaDao.contarPorImportancia("medio");
+    }
+
+    public long getPersonasBajas() {
+        return personaDao.contarPorImportancia("bajo");
+    }
+    private String nombreBusqueda; // Criterio de búsqueda
+    private List<Persona> personasFiltradas; // Resultados de la búsqueda
+
+    public String getNombreBusqueda() {
+        return nombreBusqueda;
+    }
+
+    public void setNombreBusqueda(String nombreBusqueda) {
+        this.nombreBusqueda = nombreBusqueda;
+    }
+
+    public List<Persona> getPersonasFiltradas() {
+        if (personasFiltradas == null || nombreBusqueda == null || nombreBusqueda.isEmpty()) {
+            return personaDao.obtenerPersonas();
+        }
+        return personasFiltradas;
+    }
+
+    public void buscar() {
+        personasFiltradas = personaDao.buscarPorNombre(nombreBusqueda);
+    }
+
 
 }

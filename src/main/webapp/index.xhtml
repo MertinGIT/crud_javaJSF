@@ -1,56 +1,156 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="jakarta.faces.facelets">
 <h:head>
-    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
-    <h:outputStylesheet library="css" name="layout.css" />
-    <meta charset="utf-8" name="viewport"
-          content="width=device-width, initial-scale=1"
-          http-equiv="X-UA-Compatible" />
-    <title>Lista Personas</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lista de Personas</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-panel {
+            background-color: #333;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .seccion {
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: whitesmoke;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .seccion:hover {
+            background-color: #555;
+        }
+
+        h1, h2 {
+            margin: 0;
+            color: white;
+        }
+
+        .form-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 1em;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+        }
+
+        th, td {
+            padding: 1em;
+            border: 1px solid #333;
+            text-align: center; /* Centrado para columnas */
+            width: auto;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #444;
+        }
+        .searchButton{
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            display: grid
+        }
+
+        .button-warning {
+            background-color: #ffc107;
+            color: black;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-warning:hover {
+            background-color: #e0a800;
+        }
+    </style>
 </h:head>
-<h:body style="background-color: #121212; color: white; font-family: Arial, sans-serif;">
-    <div class="p-m-5">
-        <header style="text-align: center; margin-bottom: 2em;">
-            <h1>Gestor de Personas</h1>
-        </header>
+<h:body>
+    <div class="header-panel">
+        <h3 class="header-title">Gestor de Personas</h3>
+        <div>
+            <a href="dashboard.xhtml" class="seccion">Inicio</a>
+            <a href="index.xhtml" class="seccion">Personas</a>
+            <a href="prueba.xhtml" class="seccion">Nuevas Personas</a>
+        </div>
+    </div>
 
-        <h2 style="margin-bottom: 1em;">Lista de Personas</h2>
+    <div class="form-container">
+        <h2>Lista de Personas</h2>
 
-        <h:form style="max-width: 800px; margin: auto;">
-            <div style="text-align: right; margin-bottom: 1em;">
-                <h:commandButton value="Nuevo Cliente" action="#{personaBean.nuevo()}" style="background-color: #007bff; color: white; padding: 0.5em 1em; border: none; border-radius: 5px; cursor: pointer;"/>
-            </div>
+        <!-- Formulario de búsqueda -->
+        <h:form>
+            <h:inputText value="#{personaBean.nombreBusqueda}" placeholder="Buscar por nombre" />
+            <h:commandButton value="Buscar" class="searchButton" action="#{personaBean.buscar}" />
+        </h:form>
 
-            <h:dataTable value="#{personaBean.obtenerPersonas()}" var="persona" border="1" style="width: 100%; border-collapse: collapse;">
+        <!-- Tabla de resultados -->
+        <h:form>
+            <h:dataTable value="#{personaBean.personasFiltradas}" var="persona" styleClass="table">
                 <h:column>
                     <f:facet name="header">Id</f:facet>
-                    <h:outputText value="#{persona.id}" />
+                    #{persona.id}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Nombres</f:facet>
-                    <h:outputText value="#{persona.nombre}" />
+                    <f:facet name="header">Nombre</f:facet>
+                    #{persona.nombre}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Apellidos</f:facet>
-                    <h:outputText value="#{persona.apellido}" />
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Dirección</f:facet>
-                    <h:outputText value="#{persona.direccion}" />
+                    <f:facet name="header">Apellido</f:facet>
+                    #{persona.apellido}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Teléfono</f:facet>
-                    <h:outputText value="#{persona.telefono}" />
+                    #{persona.telefono}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Editar</f:facet>
-                    <h:commandButton action="#{personaBean.editar(persona.id)}" value="Editar" style="background-color: #ffc107; color: black; padding: 0.5em; border: none; border-radius: 5px; cursor: pointer;"/>
+                    <f:facet name="header">Dirección</f:facet>
+                    #{persona.direccion}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Eliminar</f:facet>
-                    <h:commandButton action="#{personaBean.eliminar(persona.id)}" value="Eliminar" style="background-color: #dc3545; color: white; padding: 0.5em; border: none; border-radius: 5px; cursor: pointer;"/>
+                    <f:facet name="header">Activo</f:facet>
+                    #{persona.estado == 1 ? 'Sí' : 'No'}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Importancia</f:facet>
+                    #{persona.importancia}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Acciones</f:facet>
+                    <h:commandButton value="Editar" action="#{personaBean.editar(persona.id)}" class="button-warning"/>
                 </h:column>
             </h:dataTable>
         </h:form>

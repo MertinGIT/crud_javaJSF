@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registro</title>
+    <h:outputStylesheet library="webjars" name="primeflex/3.3.1/primeflex.min.css" />
+    <style>
+        /* Estilos reutilizados */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: whitesmoke;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            margin: 40px auto;
+            max-width: 400px;
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: #333;
+            color: whitesmoke;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .extra-links {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .extra-links a {
+            text-decoration: none;
+            color: #4CAF50;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div class="form-container">
+        <h3 class="form-title">Registro de Usuario</h3>
+        <h:form>
+            <!-- Aquí se muestran los mensajes globales -->
+            <div class="form-group">
+                <label for="usuario">Usuario</label>
+                <h:inputText id="usuario" value="#{usuarioBean.usuario.username}" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <h:inputText id="email" value="#{usuarioBean.usuario.email}" />
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <h:inputSecret id="password" value="#{usuarioBean.usuario.password}" />
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Contraseña</label>
+                <h:inputSecret id="confirmPassword" value="#{usuarioBean.confirmPassword}" />
+            </div>
+            <h:commandButton value="Registrarse" action="#{usuarioBean.registrar()}" styleClass="btn" />
+        </h:form>
+        <h:messages globalOnly="true" style="color: red; margin-bottom: 15px;" />
+        <div class="extra-links">
+            <a href="login.xhtml">¿Ya tienes una cuenta? Inicia sesión aquí</a>
+        </div>
+    </div>
+</h:body>
+</html>
